@@ -18,8 +18,14 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minLength: [6, "Few characters for password"],
-        maxLength: [12, "More characters for password"],
+        minLength: [6, "Too few characters for password"],
+        maxLength: [12, "Very much characters for password"],
+    },
+    cart: {
+        cartId: {
+            type: Schema.type.ObjectId,
+            ref: "Cart"
+        }
     }
 }, {timestamps: true});
 
