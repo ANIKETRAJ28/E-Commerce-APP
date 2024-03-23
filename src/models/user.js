@@ -22,10 +22,8 @@ const userSchema = new mongoose.Schema({
         maxLength: [12, "Very much characters for password"],
     },
     cart: {
-        cartId: {
-            type: Schema.type.ObjectId,
-            ref: "Cart"
-        }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Cart"
     }
 }, {timestamps: true});
 

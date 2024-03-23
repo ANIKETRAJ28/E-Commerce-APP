@@ -12,14 +12,14 @@ const productSchema = new mongoose.Schema({
     },
     category: [
         {
-            categId: Schema.type.ObjectId,
+            categId: mongoose.Schema.Types.ObjectId,
             ref: "Category"
         }
     ],
     ratings: [
         {
             user: {
-                type: Schema.Types.ObjectId,
+                type: mongoose.Schema.Types.ObjectId,
                 ref: "User",
                 required: true,
                 unique: true
@@ -34,7 +34,7 @@ const productSchema = new mongoose.Schema({
     reviews: [
         {
             user: {
-                type: Schema.Types.ObjectId,
+                type: mongoose.Schema.Types.ObjectId,
                 ref: "User",
                 required: true,
                 unique: true
