@@ -12,8 +12,9 @@ const productSchema = new mongoose.Schema({
     },
     category: [
         {
-            categId: mongoose.Schema.Types.ObjectId,
-            ref: "Category"
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Category",
+            required: true
         }
     ],
     ratings: [

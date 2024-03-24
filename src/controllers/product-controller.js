@@ -1,13 +1,13 @@
-const CategoryService = require("../services/category-service");
+const ProductService = require("../services/product-service");
 
-const categoryService = new CategoryService();
+const productService = new ProductService();
 
 const create = async(req, res) => {
     try {
-        const response = await categoryService.create(req.body);
+        const response = await productService.create(req.body);
         return res.status(201).json({
             data: response,
-            message: "Successfully created the category",
+            message: "Successfully created the product",
             status: true,
             err: {}
         });
@@ -15,7 +15,7 @@ const create = async(req, res) => {
         console.log(error);
         return res.status(500).json({
             data: {},
-            message: "Failed created the category",
+            message: "Failed created the product",
             status: false,
             err: error
         });
@@ -24,10 +24,10 @@ const create = async(req, res) => {
 
 const get = async(req, res) => {
     try {
-        const response = await categoryService.get(req.params.id);
+        const response = await productService.get(req.params.id);
         return res.status(201).json({
             data: response,
-            message: "Successfully fetched the category",
+            message: "Successfully fetched the product",
             status: true,
             err: {}
         });
@@ -35,7 +35,7 @@ const get = async(req, res) => {
         console.log(error);
         return res.status(500).json({
             data: {},
-            message: "Failed to fetch the category",
+            message: "Failed to fetch the product",
             status: false,
             err: error
         });
@@ -44,10 +44,10 @@ const get = async(req, res) => {
 
 const getAll = async(req, res) => {
     try {
-        const response = await categoryService.getAll();
+        const response = await productService.getAll();
         return res.status(201).json({
             data: response,
-            message: "Successfully fetched all categories",
+            message: "Successfully fetched all products",
             status: true,
             err: {}
         });
@@ -55,7 +55,7 @@ const getAll = async(req, res) => {
         console.log(error);
         return res.status(500).json({
             data: {},
-            message: "Failed to fetch all categories",
+            message: "Failed to fetch all products",
             status: false,
             err: error
         });
@@ -64,10 +64,10 @@ const getAll = async(req, res) => {
 
 const destroy = async(req, res) => {
     try {
-        const response = await categoryService.destroy(req.params.id);
+        const response = await productService.destroy(req.params.id);
         return res.status(201).json({
             data: response,
-            message: "Successfully deleted the category",
+            message: "Successfully deleted the product",
             status: true,
             err: {}
         });
@@ -75,7 +75,7 @@ const destroy = async(req, res) => {
         console.log(error);
         return res.status(500).json({
             data: {},
-            message: "Failed to delete the category",
+            message: "Failed to delete the product",
             status: false,
             err: error
         });
