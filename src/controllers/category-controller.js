@@ -1,10 +1,10 @@
-const UserService = require("../services/user-service");
+const CategoryService = require("../services/category-service");
 
-const userService = new UserService();
+const categoryService = new CategoryService();
 
 const create = async(req, res) => {
     try {
-        const response = await userService.create(req.body);
+        const response = await categoryService.create(req.body);
         return res.status(201).json({
             data: response,
             message: "Successfully created the user",
@@ -24,7 +24,7 @@ const create = async(req, res) => {
 
 const get = async(req, res) => {
     try {
-        const response = await userService.get(req.params.id);
+        const response = await categoryService.get(req.params.id);
         return res.status(201).json({
             data: response,
             message: "Successfully fetched the user",
@@ -44,7 +44,7 @@ const get = async(req, res) => {
 
 const getAll = async(req, res) => {
     try {
-        const response = await userService.getAll();
+        const response = await categoryService.getAll();
         return res.status(201).json({
             data: response,
             message: "Successfully fetched all users",
@@ -64,7 +64,7 @@ const getAll = async(req, res) => {
 
 const destroy = async(req, res) => {
     try {
-        const response = await userService.destroy(req.params.id);
+        const response = await categoryService.destroy(req.params.id);
         return res.status(201).json({
             data: response,
             message: "Successfully deleted the user",

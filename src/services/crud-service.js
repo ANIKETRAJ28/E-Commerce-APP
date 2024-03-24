@@ -1,13 +1,10 @@
-const UserRepository = require("../repository/user-repository");
-
-class UserService {
-    constructor() {
-        this.userRepository = new UserRepository();
+class CrudService {
+    constructor(repository) {
+        this.repository = repository;
     }
-
     async create(data) {
         try {
-            const response = await this.userRepository.create(data);
+            const response = await this.repository.create(data);
             return response;
         } catch (error) {
             console.log("Something went wrong in service layer");
@@ -15,9 +12,9 @@ class UserService {
         }
     }
 
-    async get(i) {
+    async get(id) {
         try {
-            const response = await this.userRepository.get(id);
+            const response = await this.repository.get(id);
             return response;
         } catch (error) {
             console.log("Something went wrong in service layer");
@@ -27,7 +24,7 @@ class UserService {
 
     async getAll() {
         try {
-            const response = await this.userRepository.getAll();
+            const response = await this.repository.getAll();
             return response;
         } catch (error) {
             console.log("Something went wrong in service layer");
@@ -37,7 +34,7 @@ class UserService {
 
     async destroy(id) {
         try {
-            const response = await this.userRepository.destroy(id);
+            const response = await this.repository.destroy(id);
             return response;
         } catch (error) {
             console.log("Something went wrong in service layer");
@@ -46,4 +43,4 @@ class UserService {
     }
 }
 
-module.exports = UserService;
+module.exports = CrudService;
