@@ -2,6 +2,7 @@ const express = require("express");
 const userController = require("../../controllers/user-controller");
 const Categorycontroller = require("../../controllers/category-controller");
 const ProductController = require("../../controllers/product-controller");
+const RatingReviewController = require("../../controllers/review-rating-controller");
 
 const router = express.Router();
 
@@ -14,5 +15,7 @@ router.post("/category", Categorycontroller.create);
 router.get("/category", Categorycontroller.getAll);
 
 router.post("/products", ProductController.create);
+
+router.post("/rating-review", RatingReviewController.create);
 
 module.exports = router;

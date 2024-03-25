@@ -26,6 +26,10 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Cart"
     }
+    // reviews: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: ""
+    // }
 }, {timestamps: true});
 
 const User = mongoose.model("User", userSchema);
