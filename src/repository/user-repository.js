@@ -20,6 +20,19 @@ class UserRepository extends CrudRepository {
         }
     }
 
+    async destroy(id) {
+        try {
+            const user = await this.model.findById(id);
+            console.log(user.id);
+            await cartRepository.destroy(user.id);
+            await this.model.findByIdAndDelete(user.id);
+            return true;
+        } catch (error) {
+            console.log("Something went wrong in repository layer");
+            throw error;
+        }
+    }
+
 }
 
 module.exports = UserRepository;
