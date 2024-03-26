@@ -4,7 +4,12 @@ const userService = new UserService();
 
 const create = async(req, res) => {
     try {
-        const response = await userService.create(req.body);
+        const reqPayload = {
+            name: req.body.UserName,
+            email: req.body.UserEmail,
+            password: req.body.UserPassowrd
+        };
+        const response = await userService.create(reqPayload);
         return res.status(201).json({
             data: response,
             message: "Successfully created the user",

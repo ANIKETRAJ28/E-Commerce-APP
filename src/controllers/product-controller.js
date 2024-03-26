@@ -4,7 +4,12 @@ const productService = new ProductService();
 
 const create = async(req, res) => {
     try {
-        const response = await productService.create(req.body);
+        const reqPayload = {
+            name: req.body.productName,
+            price: req.body.productPrice,
+            category: req.body.productCategory
+        };
+        const response = await productService.create(reqPayload);
         return res.status(201).json({
             data: response,
             message: "Successfully created the product",

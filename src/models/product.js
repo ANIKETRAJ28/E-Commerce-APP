@@ -22,7 +22,6 @@ const productSchema = new mongoose.Schema({
             user: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "User",
-                unique: true
             },
             rating: {
                 type: Number,
@@ -35,7 +34,6 @@ const productSchema = new mongoose.Schema({
             user: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "User",
-                unique: true
             },
             rating: {
                 type: String,

@@ -4,7 +4,10 @@ const categoryService = new CategoryService();
 
 const create = async(req, res) => {
     try {
-        const response = await categoryService.create(req.body);
+        const reqPayload = {
+            name: req.body.categoryName
+        };
+        const response = await categoryService.create(reqPayload);
         return res.status(201).json({
             data: response,
             message: "Successfully created the category",

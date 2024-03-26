@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
-const Cart = require("./cart");
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -25,11 +24,28 @@ const userSchema = new mongoose.Schema({
     cart: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Cart"
-    }
-    // reviews: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: ""
-    // }
+    },
+    products: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Product"
+        }
+    ],
+    feedback: [
+        {
+            prductName: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Product"
+            },
+            rating: {
+                type: Number,
+                enum: [1, 2, 3, 4, 5],
+            },
+            review: {
+                type: String,
+            }
+        }
+    ]
 }, {timestamps: true});
 
 const User = mongoose.model("User", userSchema);

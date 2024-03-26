@@ -12,7 +12,9 @@ class UserRepository extends CrudRepository {
     async create(data) {
         try {
             const response = await this.model.create(data);
-            await cartRepository.create({userId: response.id});
+            const cart = await cartRepository.create({userId: response.id});
+            response.cart = cart.id;
+            response.save();
             return response;
         } catch (error) {
             console.log("Something went wrong in repository layer");

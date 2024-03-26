@@ -1,24 +1,33 @@
 const ProductRepository = require("./product-repository");
+const UserRepository = require("./user-repository");
 
 const productRepository = new ProductRepository();
+const userRepository = new UserRepository();
 
 class ReviewRatingRepository {
 
     async create(data) {
         try {
             const response = await productRepository.get(data.id);
+            const user = await userRepository.get(data.user);
+            let feedback = {};
+            feedback.prductName = response.id;
             if(data.rating) {
                 await response.ratings.push({
                     user: data.user,
                     rating: data.rating
                 });
+                feedback.rating = data.rating;
             }
             if(data.review) {
                 await response.reviews.push({
                     user: data.user,
                     rating: data.review
                 });
+                feedback.review = data.review;
             }
+            await user.feedback.push(feedback);
+            await user.save();
             await response.save();
             return response;
         } catch (error) {

@@ -16,9 +16,7 @@ class ProductRepository extends CrudRepository{
                 category = await categoryRepository.create({name: data.categoryName});
             }
             const categId = category.id;
-            console.log(categId);
             const response = await Product.create(data);
-            console.log("response is", response);
             await response.category.push(categId);
             await response.save();
             await category.products.push(response.id);
