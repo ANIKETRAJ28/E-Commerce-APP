@@ -8,10 +8,12 @@ const CartController = require("../../controllers/cart-controller");
 
 const CategoryMiddleware = require("../../middlewares/category-middleware");
 const ProductMiddleware = require("../../middlewares/product-middleware");
+const UserMiddleware = require("../../middlewares/user-middleware");
 
 const router = express.Router();
 
-router.post("/users", userController.create);
+router.post("/users/signup", UserMiddleware.validateUserSignUp, userController.SignUp);
+router.post("/users/signin", UserMiddleware.validateUserSignIn, userController.signIn);
 router.get("/users/:id", userController.get);
 router.get("/users", userController.getAll);
 router.delete("/users/:id", userController.destroy);

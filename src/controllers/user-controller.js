@@ -2,12 +2,12 @@ const UserService = require("../services/user-service");
 
 const userService = new UserService();
 
-const create = async(req, res) => {
+const SignUp = async(req, res) => {
     try {
         const reqPayload = {
             name: req.body.UserName,
             email: req.body.UserEmail,
-            password: req.body.UserPassowrd
+            password: req.body.UserPassword
         };
         const response = await userService.create(reqPayload);
         return res.status(201).json({
@@ -87,9 +87,34 @@ const destroy = async(req, res) => {
     }
 }
 
+const signIn = async(req, res) => {
+    try {
+        const reqPayload = {
+            email: req.body.UserEmail,
+            password: req.body.UserPassword
+        };
+        const response = await userService.signIn(reqPayload);
+        return res.status(201).json({
+            data: response,
+            message: "Successfully signIn the user",
+            status: true,
+            err: {}
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            data: {},
+            message: "Failed to signIn the user",
+            status: false,
+            err: error
+        });
+    }
+}
+
 module.exports = {
-    create,
+    SignUp,
     get,
     getAll,
-    destroy
+    destroy,
+    signIn
 };

@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -47,6 +49,22 @@ const userSchema = new mongoose.Schema({
         }
     ]
 }, {timestamps: true});
+
+userSchema.pre("save", function(next) {
+    const user = this;
+    const SALT = bcrypt.genSaltSync(9);
+    const encryptedPass = bcrypt.hashSync(user.password, SALT);
+    user.password = encryptedPass;
+    next();
+});
+
+userSchema.methods.comparePass = function(pass) {
+    return bcrypt.compareSync(pass, this.password);
+}
+
+userSchema.methods.generateJWT = function() {
+    return jwt.sign({id: this.id, email: this.email}, "eCommerce_secret", {expiresIn: "1h"});
+}
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;

@@ -1,10 +1,7 @@
 const validateCategory = (req, res, next) => {
-    if(!req.body.categoryName) return res.status(400).json({
-        data: {},
-        message: "Missing mandatory items for creation of the category",
-        success: false,
-        err: {error: "Missing category name"}
-    });
+    if(!req.body.categoryName) throw {
+        message: "Missing category name"
+    }
     next();
 }
 
