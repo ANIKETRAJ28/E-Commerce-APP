@@ -8,8 +8,18 @@ class ReviewRatingRepository {
 
     async create(data) {
         try {
-            const response = await productRepository.get(data.id);
-            const user = await userRepository.get(data.user);
+            var flag = false;
+            const user = await userRepository.get(data.userId);
+            user.products.forEach(prod => {
+                if(prod.id == data.productId) {
+                    flag = true;
+                }
+            });
+            if(!flag) throw {
+                message: "User have not bought the product"
+            }
+            const response = await productRepository.get(data.productId);
+            
             let feedback = {};
             feedback.prductName = response.id;
             if(data.rating) {
@@ -21,7 +31,7 @@ class ReviewRatingRepository {
             }
             if(data.review) {
                 await response.reviews.push({
-                    user: data.user,
+                    user: data.userId,
                     rating: data.review
                 });
                 feedback.review = data.review;

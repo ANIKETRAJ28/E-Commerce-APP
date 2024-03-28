@@ -20,8 +20,7 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minLength: [6, "Too few characters for password"],
-        maxLength: [12, "Very much characters for password"],
+        minLength: [6, "Too few characters for password"]
     },
     cart: {
         type: mongoose.Schema.Types.ObjectId,
@@ -50,13 +49,12 @@ const userSchema = new mongoose.Schema({
     ]
 }, {timestamps: true});
 
-userSchema.pre("save", function(next) {
+userSchema.methods.encryptPass = function() {
     const user = this;
     const SALT = bcrypt.genSaltSync(9);
     const encryptedPass = bcrypt.hashSync(user.password, SALT);
     user.password = encryptedPass;
-    next();
-});
+}
 
 userSchema.methods.comparePass = function(pass) {
     return bcrypt.compareSync(pass, this.password);

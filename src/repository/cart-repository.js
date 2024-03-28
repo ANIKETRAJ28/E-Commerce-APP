@@ -19,9 +19,7 @@ class CartRepository extends CrudRepository{
     async addItems(data) {
         try {
             const cart = await Cart.findById(data.cartId);
-            data.items.forEach(async item => {
-                await cart.products.push(item);
-            });
+            await cart.products.push(data.item);
             await cart.save();
             return cart;
         } catch (error) {

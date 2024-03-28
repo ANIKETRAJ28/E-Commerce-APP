@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const { CartRepository } = require("./index");
+const CartRepository = require("./cart-repository");
 const CrudRepository = require("./crud-repository");
 
 const cartRepository = new CartRepository();
@@ -11,9 +11,11 @@ class UserRepository extends CrudRepository {
 
     async create(data) {
         try {
-            const response = await this.model.create(data);
-            const cart = await cartRepository.create({userId: response.id});
+            const response = await User.create(data);
+            const userId = response.id;
+            const cart = await cartRepository.create({userId});
             response.cart = cart.id;
+            response.encryptPass();
             response.save();
             return response;
         } catch (error) {
@@ -25,7 +27,6 @@ class UserRepository extends CrudRepository {
     async destroy(id) {
         try {
             const user = await this.model.findById(id);
-            console.log(user.id);
             await cartRepository.destroy(user.id);
             await this.model.findByIdAndDelete(user.id);
             return true;

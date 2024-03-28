@@ -13,12 +13,15 @@ class BookingRepository extends CrudRepository{
 
     async create(data) {
         try {
-            const user = await userRepository.get(data.userId);
+            const user = await userRepository.get(data.id);
             const cartId = user.cart;
             const cart = await cartRepository.get(cartId);
             const products = cart.products;
-            const bookingPayload = {user: data.userId,product: products};
+            const bookingPayload = {user: user.id,product: products};
             const booking = await Booking.create(bookingPayload);
+            products.forEach(prod => {
+                user.products.push(prod);
+            });
             cart.products = [];
             await cart.save();
             return booking;

@@ -4,7 +4,7 @@ const bookingService = new BookingService();
 
 const create = async (req, res) => {
     try {
-        const response = await bookingService.create(req.body);
+        const response = await bookingService.create(req.user);
         return res.status(201).json({
             data: response,
             message: "Successfully created the booking",

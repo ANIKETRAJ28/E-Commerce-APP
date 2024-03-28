@@ -4,7 +4,13 @@ const reviewRatingService = new ReviewRatingService();
 
 const create = async (req, res) => {
     try {
-        const response = reviewRatingService.create(req.body);
+        const reqPayload = {
+            userId: req.user.id,
+            productId: req.body.productId
+        };
+        if(req.body.review) reqPayload.review = req.body.review;
+        if(req.body.rating) reqPayload.rating = req.body.rating;
+        const response = await reviewRatingService.create(reqPayload);
         return res.status(201).json({
             data: response,
             message: "Successfully created the review or rating",

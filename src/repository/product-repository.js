@@ -11,13 +11,12 @@ class ProductRepository extends CrudRepository{
 
     async create(data) {
         try {
-            let category = await categoryRepository.getByName(data.categoryName);
+            let category = await categoryRepository.getByName(data.category);
             if(!category) {
                 category = await categoryRepository.create({name: data.categoryName});
             }
-            const categId = category.id;
+            data.category = category.id;
             const response = await Product.create(data);
-            await response.category.push(categId);
             await response.save();
             await category.products.push(response.id);
             await category.save();

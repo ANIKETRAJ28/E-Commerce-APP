@@ -9,6 +9,8 @@ const CartController = require("../../controllers/cart-controller");
 const CategoryMiddleware = require("../../middlewares/category-middleware");
 const ProductMiddleware = require("../../middlewares/product-middleware");
 const UserMiddleware = require("../../middlewares/user-middleware");
+const { authenticate } = require("../../middlewares/authenticate");
+const RatingReviewMiddleware = require("../../middlewares/review-rating-middleware");
 
 const router = express.Router();
 
@@ -25,8 +27,8 @@ router.post("/products", ProductMiddleware.validateProduct, ProductController.cr
 
 router.post("/cart/add-items", CartController.addItems);
 
-router.post("/rating-review", RatingReviewController.create);
+router.post("/rating-review", authenticate, RatingReviewMiddleware.validateReviewRating, RatingReviewController.create);
 
-router.post("/bookings", BookingController.create);
+router.post("/bookings", authenticate ,BookingController.create);
 
 module.exports = router;
